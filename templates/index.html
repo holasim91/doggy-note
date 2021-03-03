@@ -27,23 +27,43 @@
             bsCustomFileInput.init()
         })
 
-        function posting() {
-
-            // let year = $('#year').val();
-            // let month = $('#month').val();
-            // let day = $('#day').val();
-
-            let name = $('#name').val();
             let date = $('#datepicker').val();
             let sleep = $('#sleep').val();
             let poop = $('#poop').val();
             let feeding = $('#feeding').val();
             let condition = $('#condition').val();
             let another = $('#another').val();
-
             let file = $('#file')[0].files[0]
-            let form_data = new FormData()
 
+            if(name === ''){
+                alert('이름을 입력해주세요!')
+                return
+            }
+            if(date === ''){
+                alert('날짜를 입력해주세요!')
+                return
+            }
+            if(sleep === ''){
+                alert('낮잠시간을 입력해주세요!')
+                return
+            }
+            if(poop === ''){
+                alert('배변유무를 입력해주세요!')
+                return
+            }
+            if(feeding === ''){
+                alert('식사를 입력해주세요!')
+                return
+            }
+            if(condition === ''){
+                alert('기분을 입력해주세요!')
+                return
+            }
+            if(file === undefined){
+                alert('사진을 첨부해주세요!')
+                return
+            }
+            let form_data = new FormData()
             form_data.append("file_give", file)
             form_data.append("name_give", name)
             form_data.append("date_give", date)
@@ -52,11 +72,6 @@
             form_data.append("feeding_give", feeding)
             form_data.append("condition_give", condition)
             form_data.append("another_give", another)
-
-            //  form_data.append("year_give", year)
-            //  form_data.append("month_give", month)
-            //  form_data.append("day_give", day)
-
 
             $.ajax({
                 type: "POST",
@@ -70,7 +85,6 @@
                     window.location.reload();
                 }
             })
-        }
 
         function gotoDetail(post_id) {
             window.location.href = `/detail/${post_id}`
@@ -131,6 +145,13 @@
             margin-top: 65px;
             flex-wrap: wrap;
         }
+        .btn-detail{
+            float: right;
+        }
+        .card-body-ul{
+            padding-left: 20px;
+            list-style: circle;
+        }
     </style>
 
 </head>
@@ -169,10 +190,8 @@
         </div>
 
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="file" accept="image/*">
-
-            <div class="custom-file" style="margin-left: 10px; width: 545px">
-                <input type="file" class="custom-file-input" id="file">
+            <div class="custom-file" style="margin-left: 10px; margin-top: 10px; width: 545px">
+                <input type="file" class="custom-file-input" id="file" accept=".jpeg, .jpg, .png"">
                 <label class="custom-file-label">Choose file</label>
             </div>
             <div class="btn-detail">
@@ -185,22 +204,20 @@
     <div class="card-colums" id="all_posting">
         <div id="card-box" class="cards-box">
             {% for post in posts %}
-                <div class="card" style="width: 17rem; height: 300px;">
-                    <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap">
+                <div class="card" style="width: 17rem; margin-bottom:15px;">
+                    <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap" style="border-bottom: 1px solid #eee; max-height: 200px;">
                     <div class="card-body">
-                        <p class="card-text">
-                        <ul>
+                        <ul class='card-body-ul'>
                             <li> 이름 : {{ post.name }}</li>
                             <li> 날짜 : {{ post.date }}</li>
-                            <li> {{ post.another[:15] }}...</li>
+                            <li> 일기 : {{ post.another[:15] }}...</li>
                         </ul>
-                        </p>
-                    </div>
-                    <div class="btn-detail">
-                        <button class="button is-warning is-light"
-                                style='margin-left: 100px; margin-bottom: 13px; height: 25px'
-                                onclick="gotoDetail('{{ post._id }}')">자세히
-                        </button>
+                        <div class="btn-detail">
+                            <button class="button is-warning is-light"
+                                    style='margin-left: 100px; margin-bottom: 13px; height: 25px'
+                                    onclick="gotoDetail('{{ post._id }}')">자세히
+                            </button>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

@@ -58,7 +58,7 @@ def sign_in():
     if result is not None:
         payload = {
          'id': username_receive,
-         'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
+         'exp': datetime.utcnow() + timedelta(seconds=60*60)  # 로그인 1시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
@@ -106,7 +106,6 @@ def save_lists():
     condition_receive = request.form['condition_give']
     another_receive = request.form['another_give']
     file = request.files["file_give"]
-    
      
     extension = file.filename.split('.')[-1]
     today = datetime.now()
