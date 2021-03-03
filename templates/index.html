@@ -23,15 +23,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             bsCustomFileInput.init()
         })
+
         function posting() {
-            
-           // let year = $('#year').val();
-           // let month = $('#month').val();
-           // let day = $('#day').val();
-            
+
+            // let year = $('#year').val();
+            // let month = $('#month').val();
+            // let day = $('#day').val();
+
             let name = $('#name').val();
             let date = $('#datepicker').val();
             let sleep = $('#sleep').val();
@@ -42,7 +43,7 @@
 
             let file = $('#file')[0].files[0]
             let form_data = new FormData()
-        
+
             form_data.append("file_give", file)
             form_data.append("name_give", name)
             form_data.append("date_give", date)
@@ -52,10 +53,10 @@
             form_data.append("condition_give", condition)
             form_data.append("another_give", another)
 
-          //  form_data.append("year_give", year)
-          //  form_data.append("month_give", month)
-          //  form_data.append("day_give", day)
-            
+            //  form_data.append("year_give", year)
+            //  form_data.append("month_give", month)
+            //  form_data.append("day_give", day)
+
 
             $.ajax({
                 type: "POST",
@@ -70,9 +71,11 @@
                 }
             })
         }
-        function gotoDetail(post_id){
+
+        function gotoDetail(post_id) {
             window.location.href = `/detail/${post_id}`
         }
+
         function onLogOut() {
             $.removeCookie('mytoken');
             alert('안녕히가세요!')
@@ -98,7 +101,7 @@
             text-align: center;
         }
 
-        .body {
+        .contents {
 
             width: 600px;
             margin: auto;
@@ -112,10 +115,12 @@
             width: 300px;
             height: 28px;
         }
-        .btn-logout{
+
+        .btn-logout {
             float: right;
         }
-        #datepicker{
+
+        #datepicker {
             width: 300px;
             display: inline;
             margin-left: 22px;
@@ -133,18 +138,20 @@
             <p class="subtitle">
                 welcome to Doggy Note!!
             </p>
-            <button onclick="onLogOut()" class="button is-danger btn-logout">로그아웃</button>        
+            <button onclick="onLogOut()" class="button is-danger btn-logout">로그아웃</button>
         </div>
     </section>
-    <div class="body">
+    <div class="contents">
         <div style="margin: 10px;">
             <p>이름 : <input style="margin-left: 22px;" type="text" class="input" id="name"/></p>
         </div>
         <div style="margin: 0px 0px 0px 10px;">
             <label for="datepicker">날짜:</label>
-          <input id="datepicker" type="date" style="margin-left: 24px; height: 29px; padding-bottom: 5px" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-small">
+            <input id="datepicker" type="date" style="margin-left: 24px; height: 29px; padding-bottom: 5px"
+                   class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-small">
         </div>
-        <div style="margin: 2px 10px 10px 10px;"><p>낮잠 : <input style="margin-left: 22px;" type="text" class="input" id="sleep"/></p>
+        <div style="margin: 2px 10px 10px 10px;"><p>낮잠 : <input style="margin-left: 22px;" type="text" class="input"
+                                                                id="sleep"/></p>
         </div>
         <div style="margin: 10px;"><p>배변 : <input style="margin-left: 22px;" type="text" class="input" id="poop"/></p>
         </div>
@@ -154,43 +161,45 @@
         </div>
         <div style="margin: 10px;"><p>특이 사항 : <textarea class="textarea" placeholder="..." id="another"></textarea></p>
         </div>
-<<<<<<< HEAD
+
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="file" accept="image/*">
-=======
-        <div class="custom-file" style="margin-left: 10px; width: 545px">
-            <input type="file" class="custom-file-input" id="file">
->>>>>>> c8a932a33c7cac54027da56e41904df53bf21d67
-            <label class="custom-file-label">Choose file</label>
+
+            <div class="custom-file" style="margin-left: 10px; width: 545px">
+                <input type="file" class="custom-file-input" id="file">
+
+                <label class="custom-file-label">Choose file</label>
+            </div>
+            <div class="btn-detail">
+                <button style="margin-top: 10px;" class="button is-warning is-light" onclick="posting()" href="/detail">
+                    저장하기
+                </button>
+            </div>
         </div>
-          <div class="btn-detail">
-              <button style="margin-top: 10px;" class="button is-warning is-light" onclick="posting()" href="/detail">저장하기</button>
-          </div>
     </div>
-
-
     <div class="card-colums" id="all_posting">
         <div id="card-box">
             {% for post in posts %}
-            <div class="card" style="width: 18rem; margin-top: 60px;">
+                <div class="card" style="width: 18rem; margin-top: 60px;">
                     <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap">
-                <div class="card-body">
-                    <p class="card-text">
-                    <ul>
-                        <li> 이름 : {{post.name}}</li>
-                        <li> 날짜 : {{post.date}}</li>
-                        <li> {{post.another[:15]}}... </li>
-                    </ul>
-                    </p>
+                    <div class="card-body">
+                        <p class="card-text">
+                        <ul>
+                            <li> 이름 : {{ post.name }}</li>
+                            <li> 날짜 : {{ post.date }}</li>
+                            <li> {{ post.another[:15] }}...</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="btn-detail">
+                        <button class="button is-warning is-light"
+                                style='margin-left: 190px; margin-bottom: 13px; height: 25px'
+                                onclick="gotoDetail('{{ post._id }}')">자세히
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-detail">
-                    <button class="button is-warning is-light" style='margin-left: 190px; margin-bottom: 13px; height: 25px'
-                        onclick="gotoDetail('{{post._id}}')">자세히</button>
-                </div>
-            </div>
-{% endfor %}            
-</div>
-
+            {% endfor %}
+        </div>
     </div>
 </div>
 </body>

@@ -47,6 +47,7 @@
             border: 2px solid darkgray;
             text-align: center;
         }
+
         .noresize {
             resize: none;
         }
@@ -62,14 +63,14 @@
     <section class="hero is-warning">
         <div class="hero-body">
             <a href="window.location.href('/')">
-            <p class="title">
-                Doggy Note
-            </p>
-        </a>
+                <p class="title">
+                    Doggy Note
+                </p>
+            </a>
             <p class="subtitle">
                 welcome to Doggy Note!!
             </p>
-            <button onclick="window.location.replace('/')" class="button is-danger btn-logout">뒤로가기</button>        
+            <button onclick="window.location.replace('/')" class="button is-danger btn-logout">뒤로가기</button>
         </div>
     </section>
     <div class="body" style="table-layout: fixed; word-break: break-all">
@@ -89,29 +90,30 @@
             <div>
                 <table class="table">
                     <tbody>
-                        <tr>
-                            <th scope="row" style="width: 100px;">낮잠</th>
-                            <td>{{ sleep }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" style="width: 100px;">배변</th>
-                            <td>{{ poop }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" style="width: 100px;">기분</th>
-                            <td>{{ condition }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" style="width: 100px;">feeding</th>
-                            <td>{{ feeding }}</td>
-                        </tr>
+                    <tr>
+                        <th scope="row" style="width: 100px;">낮잠</th>
+                        <td>{{ sleep }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 100px;">배변</th>
+                        <td>{{ poop }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 100px;">기분</th>
+                        <td>{{ condition }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="width: 100px;">feeding</th>
+                        <td>{{ feeding }}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
             <div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">그 외 특이사항</label>
-                    <textarea class="form-control noresize" style="background-color: white;" id="exampleFormControlTextarea1" rows="3" placeholder="{{ another }}"></textarea>
+                    <textarea class="form-control noresize" style="background-color: white;"
+                              id="exampleFormControlTextarea1" rows="3" placeholder="{{ another }}"></textarea>
                 </div>
             </div>
         {% endfor %}
