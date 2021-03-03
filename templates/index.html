@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Doggy Notes</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
+    <script>
+        function posting() {
+            
+            let name = $('#name').val();
+            let year = $('#year').val();
+            let month = $('#month').val();
+            let day = $('#day').val();
+            let sleep = $('#sleep').val();
+            let poop = $('#poop').val();
+            let feeding = $('#feeding').val();
+            let condition = $('#condition').val();
+            let another = $('#another').val();
+
+            let file = $('#file')[0].files[0]
+            let form_data = new FormData()
+        
+            form_data.append("file_give", file)
+            form_data.append("name_give", name)
+            form_data.append("year_give", year)
+            form_data.append("month_give", month)
+            form_data.append("day_give", day)
+            form_data.append("sleep_give", sleep)
+            form_data.append("poop_give", poop)
+            form_data.append("feeding_give", feeding)
+            form_data.append("condition_give", condition)
+            form_data.append("another_give", another)
+
+
+            $.ajax({
+                type: "POST",
+                url: "/diarys",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload();
+                }
+            })
+        }
+        function gotoDetail(post_id){
+            window.location.href = `/detail/${post_id}`
+        }
+        function onLogOut() {
+            $.removeCookie('mytoken');
+            alert('안녕히가세요!')
+            window.location.href = '/login'
+        }
+
+
+    </script>
+
+    <style>
+        * {
+
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        .wrap {
+            width: 1000px;
+            margin: auto;
+            background-size: contain;
+        }
+
+        .hero-body {
+            text-align: center;
+        }
+
+        .body {
+
+            width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 20px 15px 20px 15px;
+            border: 2px solid darkgray;
+        }
+
+        .input {
+            width: 300px;
+            height: 28px;
+        }
+        .btn-logout{
+            float: right;
+        }
+        #order-addr{
+            width: 300px;
+            display: inline;
+            margin-left: 22px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="wrap">
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <p class="title">
+                Doggy Note
+            </p>
+            <p class="subtitle">
+                welcome to Doggy Note!!
+            </p>
+            <button onclick="onLogOut()" class="button is-danger btn-logout">로그아웃</button>        
+        </div>
+    </section>
+    <div class="body">
+        <div style="margin: 10px;">
+            <p>이름 : <input style="margin-left: 22px;" type="text" class="input" id="name"/></p>
+        </div>
+        <div style="margin: 10px;">
+            <label for="order-addr">날짜:</label>
+          <input id="order-addr" type="date" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-small">
+        </div>
+        <div style="margin: 10px;"><p>낯잠 : <input style="margin-left: 22px;" type="text" class="input" id="sleep"/></p>
+        </div>
+        <div style="margin: 10px;"><p>배변 : <input style="margin-left: 22px;" type="text" class="input" id="poop"/></p>
+        </div>
+        <div style="margin: 10px;"><p>feeding : <input type="text" class="input" id="feeding"/></p></div>
+        <div style="margin: 10px;"><p>기분 : <input style="margin-left: 22px;" type="text" class="input" id="condition"/>
+        </p>
+        </div>
+        <div style="margin: 10px;"><p>특이 사항 : <textarea class="textarea" placeholder="..." id="another"></textarea></p>
+        </div>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+          </div>
+          <div class="btn-detail">
+              <button style="margin-top: 10px;" class="button is-warning is-light" onclick="posting()" href="/detail">저장하기</button>
+          </div>
+    </div>
+
+
+    <div class="card-colums" id="all_posting">
+        <div id="card-box">
+            {% for post in posts %}
+            <div class="card" style="width: 18rem; margin-top: 60px;">
+                    <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                    <ul>
+                        <li> 이름 : {{post.name}}</li>
+                        <li> 날짜 : {{post.date}}</li>
+                        <li> {{post.another[:15]}}... </li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="btn-detail">
+                    <button class="button is-warning is-light" style='margin-left: 190px; margin-bottom: 13px; height: 25px'
+                        onclick="gotoDetail('{{post._id}}')">자세히</button>
+                </div>
+            </div>
+{% endfor %}            
+</div>
+
+    </div>
+</div>
+</body>
+</html>

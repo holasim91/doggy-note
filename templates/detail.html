@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Doggy Note | Detail</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <style>
+        * {
+
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        .wrap {
+            width: 1000px;
+            margin: auto;
+            background-size: contain;
+        }
+
+        .hero-body {
+            text-align: center;
+        }
+
+        .body {
+
+            width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            padding: 20px 15px 20px 15px;
+            border: 2px solid darkgray;
+            text-align: center;
+        }
+        .noresize {
+            resize: none;
+        }
+
+    </style>
+
+    <script>
+
+
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <a href="window.location.href('/')">
+            <p class="title">
+                Doggy Note
+            </p>
+        </a>
+            <p class="subtitle">
+                welcome to Doggy Note!!
+            </p>
+            <button onclick="window.location.replace('/')" class="button is-danger btn-logout">뒤로가기</button>        
+        </div>
+    </section>
+    <div class="body">
+        {% for list in post %}
+            {% set name = list['name'] %}
+            {% set year = list['year'] %}
+            {% set month = list['month'] %}
+            {% set day = list['day'] %}
+            {% set image = list['image'] %}
+            {% set sleep = list['sleep'] %}
+            {% set poop = list['poop'] %}
+            {% set condition = list['condition'] %}
+            {% set feeding = list['feeding'] %}
+            {% set another = list['another'] %}
+            {% set file = list['file'] %}
+            <p>이름 {{ name }}: , 날짜 : {{ year }} {{ month }} {{ day }} </p>
+            <div><img class="card-img-top" src="../static/{{ file }}" alt="Card image cap"></div>
+            <div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">낮잠</th>
+                            <td>{{ sleep }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">배변</th>
+                            <td>{{ poop }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">기분</th>
+                            <td>{{ condition }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">feeding</th>
+                            <td>{{ feeding }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">그 외 특이사항</label>
+                    <textarea class="form-control noresize" style="background-color: white;" id="exampleFormControlTextarea1" rows="3" placeholder="{{ another }}"></textarea>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
