@@ -110,9 +110,10 @@ def check_dup():
 @app.route('/diarys', methods=['POST'])
 def save_lists():
     name_receive = request.form['name_give']
-    year_receive = request.form['year_give']
-    month_receive = request.form['month_give']
-    day_receive = request.form['day_give']
+    date_receive = request.form['date_give']
+    # year_receive = request.form['year_give']
+    # month_receive = request.form['month_give']
+    # day_receive = request.form['day_give']
     sleep_receive = request.form['sleep_give']
     poop_receive = request.form['poop_give']
     feeding_receive = request.form['feeding_give']
@@ -128,15 +129,12 @@ def save_lists():
     file.save(save_to)
         
     doc = {'name': name_receive,
-           'year': year_receive,
-           'month': month_receive,
-           'date': day_receive,
+           'date': date_receive,
            'sleep': sleep_receive,
            'poop': poop_receive,
            'feeding': feeding_receive,
            'condition': condition_receive,
            'another': another_receive,
-           'image': image_receive,
            'file':f'{filename}.{extension}',
            }
     db.diarys.insert_one(doc)

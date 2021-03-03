@@ -23,12 +23,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
     <script>
+
+        $(document).ready(function(){
+            bsCustomFileInput.init()
+        })
+
         function posting() {
             
+           // let year = $('#year').val();
+           // let month = $('#month').val();
+           // let day = $('#day').val();
+            
             let name = $('#name').val();
-            let year = $('#year').val();
-            let month = $('#month').val();
-            let day = $('#day').val();
+            let date = $('#datepicker').val();
             let sleep = $('#sleep').val();
             let poop = $('#poop').val();
             let feeding = $('#feeding').val();
@@ -40,15 +47,17 @@
         
             form_data.append("file_give", file)
             form_data.append("name_give", name)
-            form_data.append("year_give", year)
-            form_data.append("month_give", month)
-            form_data.append("day_give", day)
+            form_data.append("date_give", date)
             form_data.append("sleep_give", sleep)
             form_data.append("poop_give", poop)
             form_data.append("feeding_give", feeding)
             form_data.append("condition_give", condition)
             form_data.append("another_give", another)
 
+          //  form_data.append("year_give", year)
+          //  form_data.append("month_give", month)
+          //  form_data.append("day_give", day)
+            
 
             $.ajax({
                 type: "POST",
@@ -108,7 +117,7 @@
         .btn-logout{
             float: right;
         }
-        #order-addr{
+        #datepicker{
             width: 300px;
             display: inline;
             margin-left: 22px;
@@ -134,10 +143,10 @@
             <p>이름 : <input style="margin-left: 22px;" type="text" class="input" id="name"/></p>
         </div>
         <div style="margin: 10px;">
-            <label for="order-addr">날짜:</label>
-          <input id="order-addr" type="date" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-small">
+            <label for="datepicker">날짜:</label>
+          <input id="datepicker" type="date" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-small">
         </div>
-        <div style="margin: 10px;"><p>낯잠 : <input style="margin-left: 22px;" type="text" class="input" id="sleep"/></p>
+        <div style="margin: 10px;"><p>낮잠 : <input style="margin-left: 22px;" type="text" class="input" id="sleep"/></p>
         </div>
         <div style="margin: 10px;"><p>배변 : <input style="margin-left: 22px;" type="text" class="input" id="poop"/></p>
         </div>
@@ -148,9 +157,9 @@
         <div style="margin: 10px;"><p>특이 사항 : <textarea class="textarea" placeholder="..." id="another"></textarea></p>
         </div>
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">Choose file</label>
-          </div>
+            <input type="file" class="custom-file-input" id="file">
+            <label class="custom-file-label">Choose file</label>
+        </div>
           <div class="btn-detail">
               <button style="margin-top: 10px;" class="button is-warning is-light" onclick="posting()" href="/detail">저장하기</button>
           </div>

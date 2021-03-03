@@ -76,9 +76,7 @@
     <div class="body">
         {% for list in post %}
             {% set name = list['name'] %}
-            {% set year = list['year'] %}
-            {% set month = list['month'] %}
-            {% set day = list['day'] %}
+            {% set date = list['date'] %}
             {% set image = list['image'] %}
             {% set sleep = list['sleep'] %}
             {% set poop = list['poop'] %}
@@ -86,7 +84,7 @@
             {% set feeding = list['feeding'] %}
             {% set another = list['another'] %}
             {% set file = list['file'] %}
-            <p>이름 {{ name }}: , 날짜 : {{ year }} {{ month }} {{ day }} </p>
+            <p>이름 {{ name }}: , 날짜 : {{ date }} </p>
             <div><img class="card-img-top" src="../static/{{ file }}" alt="Card image cap"></div>
             <div>
                 <table class="table">
