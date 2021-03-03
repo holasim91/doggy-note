@@ -101,12 +101,10 @@
             text-align: center;
         }
 
-        .contents {
-
+        .body {
             width: 600px;
             margin: auto;
             margin-top: 50px;
-            margin-bottom: 50px;
             padding: 20px 15px 20px 15px;
             border: 2px solid darkgray;
         }
@@ -125,6 +123,13 @@
             display: inline;
             margin-left: 22px;
         }
+        .cards-box {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 200px;
+            margin-top: 100px;
+            flex-wrap: wrap;
+        }
     </style>
 
 </head>
@@ -141,7 +146,7 @@
             <button onclick="onLogOut()" class="button is-danger btn-logout">로그아웃</button>
         </div>
     </section>
-    <div class="contents">
+    <div class="body">
         <div style="margin: 10px;">
             <p>이름 : <input style="margin-left: 22px;" type="text" class="input" id="name"/></p>
         </div>
@@ -167,7 +172,6 @@
 
             <div class="custom-file" style="margin-left: 10px; width: 545px">
                 <input type="file" class="custom-file-input" id="file">
-
                 <label class="custom-file-label">Choose file</label>
             </div>
             <div class="btn-detail">
@@ -178,9 +182,9 @@
         </div>
     </div>
     <div class="card-colums" id="all_posting">
-        <div id="card-box">
+        <div id="card-box" class="cards-box">
             {% for post in posts %}
-                <div class="card" style="width: 18rem; margin-top: 60px;">
+                <div class="card" style="width: 12rem; height: 300px; margin-top: 60px;">
                     <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">
@@ -193,7 +197,7 @@
                     </div>
                     <div class="btn-detail">
                         <button class="button is-warning is-light"
-                                style='margin-left: 190px; margin-bottom: 13px; height: 25px'
+                                style='margin-left: 100px; margin-bottom: 13px; height: 25px'
                                 onclick="gotoDetail('{{ post._id }}')">자세히
                         </button>
                     </div>

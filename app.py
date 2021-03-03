@@ -95,7 +95,7 @@ def check_dup():
     return jsonify({'result': 'success', 'exists': exists})
 
 
- # 저장하기(POST) API
+ # 저장하기(POST) API\
 @app.route('/diarys', methods=['POST'])
 def save_lists():
     name_receive = request.form['name_give']
