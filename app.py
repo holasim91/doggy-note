@@ -60,7 +60,7 @@ def sign_in():
          'id': username_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -130,6 +130,11 @@ def save_lists():
 
 @app.route('/detail/<post_id>')
 def detail(post_id):
+    token_receive = request.cookies.get('mytoken')
+    
+    #로그인 하지 않은채로 접속시 로그인화면으로
+    if token_receive is None:
+        return render_template('/login.html')
     post = list(db.diarys.find({"_id":ObjectId(post_id)}))
 
     return render_template("detail.html", post_id=post_id, post=post)
