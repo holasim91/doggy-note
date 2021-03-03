@@ -49,13 +49,12 @@
         });
 
         function isLoggedIn() {
-            console.log('??')
             if ($.cookie('mytoken')) {
                 alert('로그인 한 유저는 접근할 수 없습니다')
                 window.location.replace('/')
             }
-
         }
+        
         function is_nickname(asValue) {
             var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
             return regExp.test(asValue);

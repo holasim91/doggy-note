@@ -6,16 +6,18 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from bson.objectid import ObjectId
-
+import config
 
 app = Flask(__name__)
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
-SECRET_KEY = 'DOGGYNOTE'
+SECRET_KEY = config.DATABASE_CONFIG['host']
 
-client = MongoClient('localhost', 27017)
+client = MongoClient(config.DATABASE_CONFIG['host'], config.DATABASE_CONFIG['port'])
 db = client.dbsparta_plus_week4
+
+# client = MongoClient('mongodb://test:test@localhost', 27017)
+# db = client.doggynotedb
+
 
 
 @app.route('/')
@@ -39,16 +41,6 @@ def home():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-# @app.route('/diarys', methods=['GET'])
-# def get_diarys():
-#     diarys = list(db.diarys.find({}))
-    
-#     for i in range(len(diarys)):
-#        diarys[i]['_id'] = str(diarys[i]['_id'])
-       
-#     return jsonify({'all_diarys':diarys})
-
-
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
@@ -66,7 +58,7 @@ def sign_in():
     if result is not None:
         payload = {
          'id': username_receive,
-         'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
+         'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
 
@@ -78,9 +70,6 @@ def sign_in():
  
 @app.route('/sign_up')
 def sign_up():
-   # token_receive = request.cookies.get('mytoken')
-   # if token_receive is not None:
-   #    return render_template('index.html')
    return render_template('signup.html')
  
 @app.route('/sign_up/save', methods=['POST'])
@@ -111,16 +100,14 @@ def check_dup():
 def save_lists():
     name_receive = request.form['name_give']
     date_receive = request.form['date_give']
-    # year_receive = request.form['year_give']
-    # month_receive = request.form['month_give']
-    # day_receive = request.form['day_give']
     sleep_receive = request.form['sleep_give']
     poop_receive = request.form['poop_give']
     feeding_receive = request.form['feeding_give']
     condition_receive = request.form['condition_give']
     another_receive = request.form['another_give']
     file = request.files["file_give"]
-
+    
+     
     extension = file.filename.split('.')[-1]
     today = datetime.now()
     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
