@@ -73,7 +73,7 @@
             <button onclick="window.location.replace('/')" class="button is-danger btn-logout">뒤로가기</button>        
         </div>
     </section>
-    <div class="body">
+    <div class="body" style="table-layout: fixed; word-break: break-all">
         {% for list in post %}
             {% set name = list['name'] %}
             {% set date = list['date'] %}
@@ -90,19 +90,19 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th scope="row">낮잠</th>
+                            <th scope="row" style="width: 100px;">낮잠</th>
                             <td>{{ sleep }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">배변</th>
+                            <th scope="row" style="width: 100px;">배변</th>
                             <td>{{ poop }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">기분</th>
+                            <th scope="row" style="width: 100px;">기분</th>
                             <td>{{ condition }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">feeding</th>
+                            <th scope="row" style="width: 100px;">feeding</th>
                             <td>{{ feeding }}</td>
                         </tr>
                     </tbody>
