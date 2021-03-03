@@ -103,6 +103,7 @@
 
         .body {
             width: 600px;
+            height: 580px;
             margin: auto;
             margin-top: 50px;
             padding: 20px 15px 20px 15px;
@@ -164,7 +165,7 @@
         <div style="margin: 10px;"><p>기분 : <input style="margin-left: 22px;" type="text" class="input" id="condition"/>
         </p>
         </div>
-        <div style="margin: 10px;"><p>특이 사항 : <textarea class="textarea" placeholder="..." id="another"></textarea></p>
+        <div style="margin: 15px 10px 0px 10px;"><p>특이 사항 : <textarea class="textarea" placeholder="..." id="another"></textarea></p>
         </div>
 
         <div class="custom-file">
@@ -175,7 +176,7 @@
                 <label class="custom-file-label">Choose file</label>
             </div>
             <div class="btn-detail">
-                <button style="margin-top: 10px;" class="button is-warning is-light" onclick="posting()" href="/detail">
+                <button style="margin-top: 25px; margin-left: 450px" class="button is-warning is-light" onclick="posting()" href="/detail">
                     저장하기
                 </button>
             </div>
@@ -184,7 +185,7 @@
     <div class="card-colums" id="all_posting">
         <div id="card-box" class="cards-box">
             {% for post in posts %}
-                <div class="card" style="width: 12rem; height: 300px; margin-top: 60px;">
+                <div class="card" style="width: 12rem; height: 300px;">
                     <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">
