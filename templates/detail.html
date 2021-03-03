@@ -55,7 +55,6 @@
 
     <script>
 
-
     </script>
 </head>
 <body>
@@ -84,7 +83,8 @@
             {% set feeding = list['feeding'] %}
             {% set another = list['another'] %}
             {% set file = list['file'] %}
-            <p style="font-size: 30px;">이름 {{ name }}: , 날짜 : {{ date }} </p>
+            <p style="font-size: 30px; background-color: white">이름 : {{ name[:6] }}</p>
+            <p style="font-size: 20px; background-color: white">날짜 : {{ date }}</p>
             <div><img class="card-img-top" src="../static/{{ file }}" alt="Card image cap"></div>
             <div>
                 <table class="table">
