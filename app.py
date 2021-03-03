@@ -30,12 +30,14 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         #DB에서 값 호출
+        user_id = payload['id']
+        print(user_id)
         posts = list(db.diarys.find({}))
         # objectID를 처리하기 위한 반복문
         for i in range(len(posts)):
             posts[i]['_id'] = str(posts[i]['_id'])
         #결과 출력    
-        return render_template('index.html', posts=posts)
+        return render_template('index.html', posts=posts, user_id=user_id)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -105,6 +107,7 @@ def save_lists():
     feeding_receive = request.form['feeding_give']
     condition_receive = request.form['condition_give']
     another_receive = request.form['another_give']
+    writer_receive = request.form['writer_give']
     file = request.files["file_give"]
      
     extension = file.filename.split('.')[-1]
@@ -121,6 +124,7 @@ def save_lists():
            'feeding': feeding_receive,
            'condition': condition_receive,
            'another': another_receive,
+           'writer':writer_receive,
            'file':f'{filename}.{extension}',
            }
     db.diarys.insert_one(doc)
