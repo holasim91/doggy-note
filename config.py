@@ -1,6 +1,8 @@
 DATABASE_CONFIG = {
     'host': 'localhost',
-    'dbname': 'dbsparta_plus_week4',
+    'dbname': 'doggynotedb',
     'port': 27017,
-    'sceret_key': 'DOGGYNOTE'
+    'sceret_key': 'DOGGYNOTE',
+    'user':'test',
+    "password":'test'
     }

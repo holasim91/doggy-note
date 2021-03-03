@@ -10,13 +10,18 @@ import config
 
 app = Flask(__name__)
 
-SECRET_KEY = config.DATABASE_CONFIG['host']
+SECRET_KEY = config.DATABASE_CONFIG['sceret_key']
 
-client = MongoClient(config.DATABASE_CONFIG['host'], config.DATABASE_CONFIG['port'])
+client = MongoClient('localhost', 27017)
 db = client.dbsparta_plus_week4
+# port = config.DATABASE_CONFIG['port']
+# user = config.DATABASE_CONFIG['user']
+# password = config.DATABASE_CONFIG['password']
+# host = config.DATABASE_CONFIG['host']
+# db_name = config.DATABASE_CONFIG['dbname']
 
-# client = MongoClient('mongodb://test:test@localhost', 27017)
-# db = client.doggynotedb
+# client = MongoClient(f'mongodb://{user}:{password}@{host}', port)
+# db = client.db_name
 
 
 
