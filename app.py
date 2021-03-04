@@ -15,15 +15,16 @@ SECRET_KEY = config.DATABASE_CONFIG['sceret_key']
 
 client = MongoClient('localhost', 27017)
 db = client.dbsparta_plus_week4
+
+
 # port = config.DATABASE_CONFIG['port']
-# user = config.DATABASE_CONFIG['user']
+# username = config.DATABASE_CONFIG['user']
 # password = config.DATABASE_CONFIG['password']
 # host = config.DATABASE_CONFIG['host']
 # db_name = config.DATABASE_CONFIG['dbname']
 
-# client = MongoClient('18.188.71.218', 27017, username="sparta", password="qwer1234")
-# client = MongoClient(f'mongodb://{user}:{password}@{host}', port)
-# db = client.db_name
+# client = MongoClient(host, port, username=username, password=password)
+# db = client.doggynotedb
 
 
 
