@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 import config
+import os
 
 app = Flask(__name__)
 
@@ -20,6 +21,7 @@ db = client.dbsparta_plus_week4
 # host = config.DATABASE_CONFIG['host']
 # db_name = config.DATABASE_CONFIG['dbname']
 
+# client = MongoClient('18.188.71.218', 27017, username="sparta", password="qwer1234")
 # client = MongoClient(f'mongodb://{user}:{password}@{host}', port)
 # db = client.db_name
 
@@ -35,14 +37,13 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         #DB에서 값 호출
-        user_id = payload['id']
-        print(user_id)
+        username = payload['id']
         posts = list(db.diarys.find({}))
         # objectID를 처리하기 위한 반복문
         for i in range(len(posts)):
             posts[i]['_id'] = str(posts[i]['_id'])
         #결과 출력    
-        return render_template('index.html', posts=posts, user_id=user_id)
+        return render_template('index.html', posts=posts, username=username)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -118,10 +119,10 @@ def save_lists():
     extension = file.filename.split('.')[-1]
     today = datetime.now()
     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
-    filename = f'file-{mytime}'
+    filename = f'file-{mytime}'    
     save_to = f'static/{filename}.{extension}'
     file.save(save_to)
-        
+            
     doc = {'name': name_receive,
            'date': date_receive,
            'sleep': sleep_receive,
@@ -143,11 +144,66 @@ def detail(post_id):
     #로그인 하지 않은채로 접속시 로그인화면으로
     if token_receive is None:
         return render_template('/login.html')
-    post = list(db.diarys.find({"_id":ObjectId(post_id)}))
+    
+    
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        #DB에서 값 호출
+        username = payload['id']
+        post = list(db.diarys.find({"_id":ObjectId(post_id)}))
+        return render_template("detail.html", post_id=post_id, post=post, username=username)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-    return render_template("detail.html", post_id=post_id, post=post)
-
-
+@app.route('/update_post', methods=['POST'])
+def update_post():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        
+        name_receive = request.form['name_give']
+        date_receive = request.form['date_give']
+        sleep_receive = request.form['sleep_give']
+        poop_receive = request.form['poop_give']
+        feeding_receive = request.form['feeding_give']
+        condition_receive = request.form['condition_give']
+        another_receive = request.form['another_give']
+        
+        new_doc = {
+           'name': name_receive,
+           'date': date_receive,
+           'sleep': sleep_receive,
+           'poop': poop_receive,
+           'feeding': feeding_receive,
+           'condition': condition_receive,
+           'another': another_receive,
+           }
+        
+        currentImgSrc_receive = request.form['currentImgSrc_give'].split('/')
+        target_dir = currentImgSrc_receive[-2]
+        target_file = currentImgSrc_receive[-1]
+        target_src = f"{target_dir}/{target_file}"
+        if 'file_give' in request.files:
+            if os.path.exists(target_src):
+                os.remove(target_src)
+            else:
+                print('파일 없음')    
+            file = request.files["file_give"]
+            extension = file.filename.split('.')[-1]
+            today = datetime.now()
+            mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+            filename = f'file-{mytime}'    
+            save_to = f'static/{filename}.{extension}'
+            file.save(save_to)
+            new_doc['file'] = f'{filename}.{extension}'
+        db.diarys.update_one({'writer': payload['id']}, {'$set':new_doc})
+        return jsonify({"result": "success", 'msg': '업데이트 완료!'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+    
+    
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
 

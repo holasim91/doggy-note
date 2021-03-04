@@ -105,18 +105,6 @@
             window.location.href = '/login'
         }
 
-        {#$(function () {#}
-        {#    let length = $('#card-box').length;#}
-        {#    if (length == 0 ) {#}
-        {#        $('#card-box').css('display', 'flex');#}
-        {#        $('#card-box').css('justify-content', 'space-between');#}
-        {#        $('#card-box').css('margin', '0px 70px');#}
-        {#        $('#card-box').css('margin-left', 100);#}
-        {#        $('#card-box').css('margin-top', '65px');#}
-        {#        $('#card-box').css('flex-wrap', 'wrap');#}
-        {#    } else if#}
-        {# }) #}
-
     </script>
 
     <style>
@@ -161,7 +149,6 @@
 
         .cards-box {
             display: flex;
-            {#justify-content: space-between;#}
             margin: 0 70px;
             margin-top: 65px;
             flex-wrap: wrap;
@@ -201,7 +188,7 @@
     <div class="body">
         <div style="margin: 10px;">
             <div>작성자 :
-                <div class="writer">{{ user_id }}</div>
+                <div class="writer">{{ username }}</div>
             </div>
         </div>
         <div style="margin: 10px;">
@@ -244,7 +231,6 @@
     </div>
     <div class="card-colums" id="all_posting">
         <div id="card-box" class="cards-box">
-            {% set user_id = user_id %}
             {% for post in posts %}
                 <div class="card" style="width: 17rem; margin-bottom:15px; margin-left: 10px;">
                     <img class="card-img-top" src="static/{{ post.file }}" alt="Card image cap"
