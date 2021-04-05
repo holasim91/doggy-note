@@ -199,6 +199,7 @@ def update_post():
             save_to = f'static/{filename}.{extension}'
             file.save(save_to)
             new_doc['file'] = f'{filename}.{extension}'
+        # user
         db.diarys.update_one({'writer': payload['id']}, {'$set':new_doc})
         return jsonify({"result": "success", 'msg': '업데이트 완료!'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
